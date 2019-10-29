@@ -5,6 +5,7 @@ namespace IT703_Assignment2.Models
 {
     public class Room
     {
+        [Key]
         public string RoomID { get; set; }
         public roomType RoomType { get; set; }
         //public virtual Booking Booking { get; set; }
