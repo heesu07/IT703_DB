@@ -1,0 +1,129 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+
+<form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+    <div class="row">
+        <div class="col-md-4">
+            <h4>Create a new account.</h4>
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Input.Email"></label>
+                <input asp-for="Input.Email" class="form-control" />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.Password"></label>
+                <input asp-for="Input.Password" class="form-control" />
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.ConfirmPassword"></label>
+                <input asp-for="Input.ConfirmPassword" class="form-control" />
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.Gender"></label>
+                <select asp-for="Input.Gender" class="form-control">
+                    <option value="">-- Select Category --</option>
+                    <option value="Men">Men</option>
+                    <option value="Women">Women</option>
+                    <option value="Family">Family</option>
+                    <option value="Group">Group</option>
+
+                </select>
+                <span asp-validation-for="Input.Type" class="text-danger" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.Type"></label>
+                <select asp-for="Input.Type" class="form-control">
+                    <option value="">-- Select Category --</option>
+                    <option value="Individual Guest">Individual Guest</option>
+                    <option value="Company">Company</option>
+                    <option value="Travel Agency">Travel Agency</option>
+
+                </select>
+                <span asp-validation-for="Input.Type" class="text-danger" />
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+
+        </div>
+
+
+        <div class="col-md-4">
+            <h4>.</h4>
+            <hr />
+            <div class="form-group">
+                <label asp-for="Input.FName"></label>
+                <input asp-for="Input.FName" class="form-control" />
+                <span asp-validation-for="Input.FName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.LName"></label>
+                <input asp-for="Input.LName" class="form-control" />
+                <span asp-validation-for="Input.LName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.Address"></label>
+                <input asp-for="Input.Address" class="form-control" />
+                <span asp-validation-for="Input.Address" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.Address2"></label>
+                <input asp-for="Input.Address2" class="form-control" />
+                <span asp-validation-for="Input.Address2" class="text-danger"></span>
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+            <h4>.</h4>
+            <hr />
+            <div class="form-group">
+                <label asp-for="Input.City"></label>
+                <input asp-for="Input.City" class="form-control" />
+                <span asp-validation-for="Input.City" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.State"></label>
+                <input asp-for="Input.State" class="form-control" />
+                <span asp-validation-for="Input.State" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.ZipCode"></label>
+                <input asp-for="Input.ZipCode" class="form-control" />
+                <span asp-validation-for="Input.Country" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.Phone"></label>
+                <input asp-for="Input.Phone" class="form-control" />
+                <span asp-validation-for="Input.Phone" class="text-danger"></span>
+            </div>
+
+
+        </div>
+    </div>
+</form>
+ 
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
