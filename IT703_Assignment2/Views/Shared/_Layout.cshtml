@@ -49,27 +49,24 @@
                         @if (User.IsInRole("Manager"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Bookings" asp-action="Index">BookManage</a>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Bookings" asp-action="Index2">BookManage</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-white" asp-area="" asp-controller="Rooms" asp-action="Index2">RoomManage</a>
                             </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Bookings" asp-action="Index">Booking list</a>
-                            </li>
-                            <partial name="_LoginPartial" />
+                            
 
                         }
                         else if (User.IsInRole("Reception"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Bookings" asp-action="Index">BookManage</a>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Bookings" asp-action="Index2">BookManage</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-white" asp-area="" asp-controller="Rooms" asp-action="Index2">RoomManage</a>
                             </li>
-                            <partial name="_LoginPartial" />
+                            
 
                         }
                         else if (User.IsInRole("Housekeeper"))
@@ -77,7 +74,7 @@
                             <li class="nav-item">
                                 <a class="nav-link text-white" asp-area="" asp-controller="Rooms" asp-action="Index2">RoomManage</a>
                             </li>
-                            <partial name="_LoginPartial" />
+                           
                         }
                         else
                         {
@@ -97,9 +94,10 @@
                             <li class="nav-item">
                                 <a class="nav-link text-white" asp-area="" asp-controller="Contact" asp-action="Index">Contact</a>
                             </li>
-                            <partial name="_LoginPartial" />
+
                         }
                     </ul>
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>

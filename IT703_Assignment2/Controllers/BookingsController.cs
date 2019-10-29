@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using IT703_Assignment2.Data;
 using IT703_Assignment2.Models;
@@ -23,7 +21,16 @@ namespace IT703_Assignment2.Controllers
         public async Task<IActionResult> Index()
         {
 
-            var data = await _context.Bookings.Include(a => a.Rooms).ToListAsync();
+            var data = await _context.Bookings.ToListAsync();
+
+            return View(data);
+        }
+
+        // GET: Bookings
+        public async Task<IActionResult> Index2()
+        {
+
+            var data = await _context.Bookings.ToListAsync();
 
             return View(data);
         }
@@ -34,7 +41,7 @@ namespace IT703_Assignment2.Controllers
             if (id != null)
             {
                 int sum = 0;
-                var book = await _context.Bookings.Include(a => a.Rooms).SingleOrDefaultAsync(a => a.ReferenceNum == id);
+                var book = await _context.Bookings.SingleOrDefaultAsync(a => a.ReferenceNum == id);
 
                 if (book == null)
                 {
@@ -169,6 +176,7 @@ namespace IT703_Assignment2.Controllers
                 RoomFee = total * days,
                 CheckIn = Convert.ToDateTime(chin),
                 CheckOut = Convert.ToDateTime(chout),
+                //CheckStatus = CheckState.Reserve,
                 CreatedAt = DateTime.Now,
                 ReferenceNum = str,
                 NumGuest = num,
