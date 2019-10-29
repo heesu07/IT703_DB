@@ -158,15 +158,15 @@
                                 <td>
                                     @if (item.RoomType == roomType.Single)
                                     {
-                                        <a>100$</a>
+                                        <a>$100</a>
                                     }
                                     else if (item.RoomType == roomType.Superior)
                                     {
-                                        <a>150$</a>
+                                        <a>$150</a>
                                     }
                                     else
                                     {
-                                        <a>200$</a>
+                                        <a>$200</a>
                                     }
                                 </td>
                                 <td>
@@ -204,7 +204,7 @@
                                         @foreach (var item in Model)
                                         {
                                             <option value=@item.RoomID>
-                                                Type :@item.RoomType &nbsp; &nbsp; RoomNum :@item.RoomNum &nbsp;&nbsp;Price: @item.Price$
+                                                Type :@item.RoomType &nbsp; &nbsp; RoomNum :@item.RoomNum &nbsp;&nbsp;Price: $@item.Price
 
                                                 }
                                             </option>
