@@ -130,17 +130,17 @@ namespace Final_Project.Data
               var rooms = new Room[]
               {
       
-              new Room {RoomType =roomType.Single, RoomNum="R01",Status = Status.VacantClean, Description="Single" },
-              new Room {RoomType =roomType.Single, RoomNum="R02",Status = Status.VacantClean, Description="Single" },
-              new Room {RoomType =roomType.Single, RoomNum="R03",Status = Status.VacantClean, Description="Single" },
+              new Room {RoomType =roomType.Single, RoomNum="R01",Status = Status.VacantClean, Description="Mamimum two customers can stay in this room" },
+              new Room {RoomType =roomType.Single, RoomNum="R02",Status = Status.VacantClean, Description="Mamimum two customers can stay in this room" },
+              new Room {RoomType =roomType.Single, RoomNum="R03",Status = Status.VacantClean, Description="Mamimum two customers can stay in this room" },
 
-               new Room {RoomType =roomType.TwoBedRooms, RoomNum="R04",Status = Status.VacantClean, Description="TwoBedRooms" },
-              new Room {RoomType =roomType.TwoBedRooms, RoomNum="R05",Status = Status.VacantClean, Description="TwoBedRooms" },
-              new Room {RoomType =roomType.TwoBedRooms, RoomNum="R06",Status = Status.VacantClean, Description="TwoBedRooms" },
+               new Room {RoomType =roomType.TwoBedRooms, RoomNum="R04",Status = Status.VacantClean, Description="Mamimum four customers can stay in this roo" },
+              new Room {RoomType =roomType.TwoBedRooms, RoomNum="R05",Status = Status.VacantClean, Description="Mamimum four customers can stay in this roo" },
+              new Room {RoomType =roomType.TwoBedRooms, RoomNum="R06",Status = Status.VacantClean, Description="Mamimum four customers can stay in this roo" },
 
-               new Room {RoomType =roomType.Superior, RoomNum="R07",Status = Status.VacantClean, Description="Superior" },
-              new Room {RoomType =roomType.Superior, RoomNum="R08",Status = Status.VacantClean, Description="Superior" },
-              new Room {RoomType =roomType.Superior, RoomNum="R09",Status = Status.VacantClean, Description="Superior" },
+               new Room {RoomType =roomType.Superior, RoomNum="R07",Status = Status.VacantClean, Description="Mamimum two customers can stay in this room" },
+              new Room {RoomType =roomType.Superior, RoomNum="R08",Status = Status.VacantClean, Description="Mamimum two customers can stay in this room" },
+              new Room {RoomType =roomType.Superior, RoomNum="R09",Status = Status.VacantClean, Description="Mamimum two customers can stay in this room" },
 
                };
 
