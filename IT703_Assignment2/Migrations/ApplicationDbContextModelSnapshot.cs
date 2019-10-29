@@ -15,7 +15,7 @@ namespace IT703_Assignment2.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.2-servicing-10034")
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -171,14 +171,18 @@ namespace IT703_Assignment2.Migrations
 
                     b.Property<bool>("Paid");
 
+                    b.Property<bool>("ParkingLot");
+
                     b.Property<string>("ParkingLotID");
 
                     b.Property<string>("Phone");
 
+                    b.Property<double>("RoomFee");
+
                     b.Property<string>("RoomID")
                         .IsRequired();
 
-                    b.Property<double>("TotalFee");
+                    b.Property<double>("restaurantFee");
 
                     b.HasKey("ReferenceNum");
 
@@ -504,7 +508,7 @@ namespace IT703_Assignment2.Migrations
                         .WithMany()
                         .HasForeignKey("GuestID");
 
-                    b.HasOne("IT703_Assignment2.Models.ParkingLot", "ParkingLot")
+                    b.HasOne("IT703_Assignment2.Models.ParkingLot")
                         .WithMany("Bookings")
                         .HasForeignKey("ParkingLotID");
                 });

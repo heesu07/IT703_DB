@@ -19,16 +19,17 @@ namespace IT703_Assignment2.Models
         public DateTime CreatedAt { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:YYYY/MM/DD}")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime CheckIn { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:YYYY/MM/DD}")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime CheckOut { get; set; }
         [Required]
         public int NumGuest { get; set; }
+        public double restaurantFee { get; set; }
         [Required]
-        public double TotalFee { get; set; }
+        public double RoomFee { get; set; }
         [Required]
         public bool Paid { get; set; }
         [Required]

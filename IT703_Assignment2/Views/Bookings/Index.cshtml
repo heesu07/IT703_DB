@@ -37,7 +37,10 @@
                 @Html.DisplayNameFor(model => model.NumGuest)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TotalFee)
+                RestaurantFee
+            </th>
+            <th>
+                Room Fee
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Paid)
@@ -67,19 +70,22 @@
                 @item.CheckOut
             </td>
             <td>
-                @if (item.TotalFee == 100)
+                @item.restaurantFee
+            </td>
+            <td>
+                @if (item.RoomFee == 100)
                 {
                     <a>SingleRoom</a>
 
                 }
-                else if (item.TotalFee == 150)
+                else if (item.RoomFee == 150)
                 {
 
                     <a>SuperiorRoom</a>
                 }
                 else
                 {
-                     <a>TwoBedRoom</a>
+                    <a>TwoBedRoom</a>
                 }
 
 
@@ -88,7 +94,7 @@
                 @Html.DisplayFor(modelItem => item.NumGuest)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TotalFee)
+                @Html.DisplayFor(modelItem => item.RoomFee)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Paid)

@@ -172,6 +172,7 @@ namespace IT703_Assignment2.Controllers
                 reserveRooms.Sort((x, y) => x.RoomNum.CompareTo(y.RoomNum));
                 return View(reserveRooms);
             }
+
             return View(await _context.Rooms.ToListAsync());
         }
 

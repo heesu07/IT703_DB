@@ -29,21 +29,37 @@ namespace IT703_Assignment2.Controllers
         }
 
 
-        public async Task<IActionResult> Customer(string id)
+        public async Task<IActionResult> Customer(string id,int food,int num1, bool pay)
         {
             if (id != null)
             {
-
+                int sum = 0;
                 var book = await _context.Bookings.Include(a => a.Rooms).SingleOrDefaultAsync(a => a.ReferenceNum == id);
-                if (book != null)
+
+                if (book == null)
                 {
                     ViewBag.result = "There are no Booking ReferenceNumber in Database";
+                    return View();
                 }
 
+                if(food > 0 && num1 > 0)
+                {
+                    sum = food * num1;
+                    book.restaurantFee += sum;
+                    _context.Bookings.Update(book);
+                }
+
+                if (pay)
+                {
+                    book.Paid = true;
+                    _context.Bookings.Update(book);
+                }
+              
                 var room = _context.Rooms.Single(a => a.RoomID == book.RoomID);
                 ViewBag.num = room.RoomNum;
                 ViewBag.type = room.RoomType;
-
+                ViewBag.total = book.restaurantFee + book.RoomFee;
+                _context.SaveChanges();
                 return View(book);
             }
 
@@ -80,20 +96,38 @@ namespace IT703_Assignment2.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(string chin, string chout, string roomid, bool input, string fn, string ln, string em, string ph, bool pk,
-            string ad, string ref1)
+            string ad, string ref1, int food, int num1, bool pay)
         {
             if (ref1 != null)
             {
 
-
                 var book1 = await _context.Bookings.SingleOrDefaultAsync(a => a.ReferenceNum == ref1);
-                book1.Paid = true;
-                var room1 = _context.Rooms.Single(a => a.RoomID == book1.RoomID);
-                ViewBag.num = room1.RoomNum;
-                ViewBag.type = room1.RoomType;
-                _context.Bookings.Update(book1);
+                int sum = 0;
+
+                if (food >0 && num1 >0) 
+                {
+                    sum = food * num1;
+
+                    book1.restaurantFee += sum;
+                    var room1 = _context.Rooms.Single(a => a.RoomID == book1.RoomID);
+                    ViewBag.num = room1.RoomNum;
+                    ViewBag.type = room1.RoomType;
+                    ViewBag.total = book1.restaurantFee + book1.RoomFee;
+                    _context.Bookings.Update(book1);                   
+                }
+
+                if (pay)
+                {
+
+                    book1.Paid = true;
+                    var room1 = _context.Rooms.Single(a => a.RoomID == book1.RoomID);
+                    ViewBag.num = room1.RoomNum;
+                    ViewBag.type = room1.RoomType;
+                    ViewBag.total = book1.restaurantFee + book1.RoomFee;
+                    _context.Bookings.Update(book1);                                    
+                }
+
                 await _context.SaveChangesAsync();
-              //  return RedirectToAction(nameof(Index));
                 return View(book1);
 
             }
@@ -119,9 +153,10 @@ namespace IT703_Assignment2.Controllers
 
             Guid guid = Guid.NewGuid();
             string str = guid.ToString();
-
-
-
+           
+            var days = (Convert.ToDateTime(chout) - Convert.ToDateTime(chin)).Days;
+            
+              
             var booking = new Booking
             {
                 FirstName = fn,
@@ -131,13 +166,14 @@ namespace IT703_Assignment2.Controllers
                 Address = ad,
                 Email = em,
                 Paid = false,
-                TotalFee = total,
+                RoomFee = total * days,
                 CheckIn = Convert.ToDateTime(chin),
                 CheckOut = Convert.ToDateTime(chout),
                 CreatedAt = DateTime.Now,
                 ReferenceNum = str,
                 NumGuest = num,
                 ParkingLot = pk,
+                restaurantFee = 0,
 
 
             };
@@ -155,8 +191,9 @@ namespace IT703_Assignment2.Controllers
             var room = _context.Rooms.Single(a => a.RoomID == roomid);
             ViewBag.num = room.RoomNum;
             ViewBag.type = room.RoomType;
-
+            
             var book = await _context.Bookings.Include(a => a.Rooms).SingleOrDefaultAsync(a => a.ReferenceNum == str);
+            ViewBag.total = book.restaurantFee + book.RoomFee;
             return View(book);
         }
 
