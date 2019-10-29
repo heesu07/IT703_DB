@@ -4,6 +4,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace IT703_Assignment2.Models
 {
+    public enum CheckState
+    {
+        Reserve,
+        CheckIn,
+        CheckOut,
+    }
     public class Booking
     {
         [Key]
@@ -24,6 +30,8 @@ namespace IT703_Assignment2.Models
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:YYYY/MM/DD}")]
         public DateTime CheckOut { get; set; }
+        public CheckState CheckStatus { get; set; }
+
         [Required]
         public int NumGuest { get; set; }
         [Required]

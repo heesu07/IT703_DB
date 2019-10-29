@@ -6,9 +6,12 @@ namespace IT703_Assignment2.Models
     public class Payment
     {
         [Key]
-        public string ID { get; set; }
-        public virtual Guest Guest { get; set; }
-        public virtual Room Room { get; set; }
+        public string PaymentID { get; set; }
+        public Guest Guest { get; set; }
+        //public Room Room { get; set; }
+        public Booking Booking { get; set; }
+        public string ReferenceNum { get; set; }
+        public int AdditionFee { get; set; }
         [Required]
         public string CardHolder { get; set; }
         [Required]

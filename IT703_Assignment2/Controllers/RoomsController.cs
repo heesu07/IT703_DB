@@ -59,7 +59,7 @@ namespace IT703_Assignment2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,RoomType,RoomNum,Status,Description")] Room room)
+        public async Task<IActionResult> Create([Bind("RoomID,RoomType,RoomNum,Status,Description")] Room room)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace IT703_Assignment2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("ID,RoomType,RoomNum,Status,Description")] Room room)
+        public async Task<IActionResult> Edit(string id, [Bind("RoomID,RoomType,RoomNum,Status,Description")] Room room)
         {
             if (id != room.RoomID)
             {
