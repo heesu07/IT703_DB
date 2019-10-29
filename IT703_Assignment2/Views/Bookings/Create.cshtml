@@ -4,96 +4,171 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Booking</h4>
+<br />
+<h4>MY Booking Information</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="RoomID" class="control-label"></label>
-                <input asp-for="RoomID" class="form-control" />
-                <span asp-validation-for="RoomID" class="text-danger"></span>
+
+<p>Please Rember your ReferenceNumer to check your booking status in Cutomer page </p>
+
+@if (Model.Paid)
+{
+    <p>Your booking was complete , please check your booking status in Customer page </p>
+
+}
+else
+{
+    <p>You need to pay to complete your Booking </p>
+}
+
+<h3>Customer information </h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ReferenceNum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Model.ReferenceNum
+            </td>
+            <td>
+                @Model.FirstName
+            </td>
+            <td>
+                @Model.LastName
+            </td>
+            <td>
+                @Model.Phone
+            </td>
+            <td>
+                @Model.Email
+            </td>
+            <td>
+                @Model.Address
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+
+<h3>Booking information</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Room Type
+            </th>
+            <th>
+                Room Number
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumGuest)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CheckIn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CheckOut)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalFee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ParkingLot)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Paid)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @ViewBag.type
+            </td>
+            <td>
+                @ViewBag.num
+            </td>
+            <td>
+                @Model.NumGuest
+            </td>
+            <td>
+                @Model.CheckIn
+            </td>
+            <td>
+                @Model.CheckOut
+            </td>
+            <td>
+                @Model.TotalFee
+            </td>
+            <td>
+                @Model.ParkingLot
+            </td>
+            <td>
+                @Model.Paid
+            </td>
+            <td>
+                @if (!Model.Paid)
+                {
+                    <button data-toggle="modal" data-target="#myModa2" class="btn btn-outline-secondary">Pay</button>
+                }
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+
+
+
+<div class="modal fade" id="myModa2" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Booking</h4>
             </div>
-            
-            <div class="form-group">
-                <label asp-for="CheckIn" class="control-label"></label>
-                <input asp-for="CheckIn" class="form-control" />
-                <span asp-validation-for="CheckIn" class="text-danger"></span>
+            <div class="modal-body">
+                <form asp-controller="Bookings" asp-action="Create" method="post">
+
+
+                    <input hidden name="ref1" value="@Model.ReferenceNum" />
+                    <div class="form-group">
+                        <input type="submit" value="PAY" class="btn btn-primary" />
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="CheckOut" class="control-label"></label>
-                <input asp-for="CheckOut" class="form-control" />
-                <span asp-validation-for="CheckOut" class="text-danger"></span>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-default" data-dismiss="modal" onclick="myFunction2()">Close</button>
             </div>
-            <div class="form-group">
-                <label asp-for="NumGuest" class="control-label"></label>
-                <input asp-for="NumGuest" class="form-control" />
-                <span asp-validation-for="NumGuest" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TotalFee" class="control-label"></label>
-                <input asp-for="TotalFee" class="form-control" />
-                <span asp-validation-for="TotalFee" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Paid" /> @Html.DisplayNameFor(model => model.Paid)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MiddleName" class="control-label"></label>
-                <input asp-for="MiddleName" class="form-control" />
-                <span asp-validation-for="MiddleName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Phone" class="control-label"></label>
-                <input asp-for="Phone" class="form-control" />
-                <span asp-validation-for="Phone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="City" class="control-label"></label>
-                <input asp-for="City" class="form-control" />
-                <span asp-validation-for="City" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Notes" class="control-label"></label>
-                <textarea asp-for="Notes" class="form-control"></textarea>
-                <span asp-validation-for="Notes" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
+
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+<div>
+    <a asp-controller="Home" asp-action="Index">Back to Home</a>
+</div>
