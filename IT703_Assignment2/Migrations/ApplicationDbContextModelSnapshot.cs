@@ -148,6 +148,8 @@ namespace IT703_Assignment2.Migrations
 
                     b.Property<DateTime>("CheckOut");
 
+                    b.Property<int>("CheckStatus");
+
                     b.Property<string>("City");
 
                     b.Property<DateTime>("CreatedAt");
@@ -308,8 +310,10 @@ namespace IT703_Assignment2.Migrations
 
             modelBuilder.Entity("IT703_Assignment2.Models.Payment", b =>
                 {
-                    b.Property<string>("ID")
+                    b.Property<string>("PaymentID")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AdditionFee");
 
                     b.Property<double>("Amount");
 
@@ -332,13 +336,13 @@ namespace IT703_Assignment2.Migrations
 
                     b.Property<int>("PaymentType");
 
-                    b.Property<string>("RoomID");
+                    b.Property<string>("ReferenceNum");
 
-                    b.HasKey("ID");
+                    b.HasKey("PaymentID");
 
                     b.HasIndex("GuestID");
 
-                    b.HasIndex("RoomID");
+                    b.HasIndex("ReferenceNum");
 
                     b.ToTable("Payments");
                 });
@@ -537,9 +541,9 @@ namespace IT703_Assignment2.Migrations
                         .WithMany()
                         .HasForeignKey("GuestID");
 
-                    b.HasOne("IT703_Assignment2.Models.Room", "Room")
+                    b.HasOne("IT703_Assignment2.Models.Booking", "Booking")
                         .WithMany()
-                        .HasForeignKey("RoomID");
+                        .HasForeignKey("ReferenceNum");
                 });
 
             modelBuilder.Entity("IT703_Assignment2.Models.Room", b =>
