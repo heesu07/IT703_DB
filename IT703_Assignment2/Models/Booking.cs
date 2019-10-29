@@ -15,7 +15,8 @@ namespace IT703_Assignment2.Models
         [Key]
         public string ReferenceNum { get; set; }
         public  Guest Guest { get; set; }
-        public  ParkingLot ParkingLot { get; set; }
+        //public  ParkingLot ParkingLot { get; set; }
+        public bool ParkingLot { get; set; }
         public  ICollection<Room> Rooms { get; set; }
         [Required]
         public string RoomID { get; set; }

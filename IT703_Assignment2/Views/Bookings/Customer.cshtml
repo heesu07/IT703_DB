@@ -1,0 +1,172 @@
+﻿@model IT703_Assignment2.Models.Booking
+
+<br />
+<h4>MY Booking Information</h4>
+
+<hr />
+
+
+<form asp-action="Customer">
+
+
+    <div class="form-group">
+        <label class="control-label"> Search your reference number</label>
+        <input class="form-control" name="id" />
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Search" class="btn btn-primary" />
+    </div>
+
+
+</form>
+<hr />
+
+
+@if (Model != null)
+{
+
+    @if (Model.Paid)
+    {
+        <p>Your booking was completed </p>
+
+    }
+    else
+    {
+        <p>You need to pay to complete your Booking </p>
+    }
+    <br />
+
+    <h3>Customer information </h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ReferenceNum)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Phone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Address)
+                </th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Model.ReferenceNum
+                </td>
+                <td>
+                    @Model.FirstName
+                </td>
+                <td>
+                    @Model.LastName
+                </td>
+                <td>
+                    @Model.Phone
+                </td>
+                <td>
+                    @Model.Email
+                </td>
+                <td>
+                    @Model.Address
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <h3>Booking information</h3>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Room Type
+                </th>
+                <th>
+                    Room Number
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NumGuest)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CheckIn)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CheckOut)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TotalFee)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ParkingLot)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Paid)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @ViewBag.type
+                </td>
+                <td>
+                    @ViewBag.num
+                </td>
+                <td>
+                    @Model.NumGuest
+                </td>
+                <td>
+                    @Model.CheckIn
+                </td>
+                <td>
+                    @Model.CheckOut
+                </td>
+                <td>
+                    @Model.TotalFee
+                </td>
+                <td>
+                    @Model.ParkingLot
+                </td>
+                <td>
+                    @Model.Paid
+                </td>
+                <td>
+                    @if (!Model.Paid)
+                    {
+                        <button data-toggle="modal" data-target="#myModa2" class="btn btn-outline-secondary">Pay</button>
+                    }
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+}
+else
+{
+    <h1> Sorry <strong>@ViewBag.result</strong></h1>
+}
+
+
+
+<div>
+    <a asp-controller="Home" asp-action="Index">Back to Home</a>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

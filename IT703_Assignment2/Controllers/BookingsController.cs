@@ -22,7 +22,32 @@ namespace IT703_Assignment2.Controllers
         // GET: Bookings
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Bookings.ToListAsync());
+
+            var data = await _context.Bookings.Include(a => a.Rooms).ToListAsync();
+
+            return View(data);
+        }
+
+
+        public async Task<IActionResult> Customer(string id)
+        {
+            if (id != null)
+            {
+
+                var book = await _context.Bookings.Include(a => a.Rooms).SingleOrDefaultAsync(a => a.ReferenceNum == id);
+                if (book != null)
+                {
+                    ViewBag.result = "There are no Booking ReferenceNumber in Database";
+                }
+
+                var room = _context.Rooms.Single(a => a.RoomID == book.RoomID);
+                ViewBag.num = room.RoomNum;
+                ViewBag.type = room.RoomType;
+
+                return View(book);
+            }
+
+            return View();
         }
 
         // GET: Bookings/Details/5
@@ -54,16 +79,85 @@ namespace IT703_Assignment2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ReferenceNum,RoomID,CreatedAt,CheckIn,CheckOut,NumGuest,TotalFee,Paid,FirstName,MiddleName,LastName,Email,Phone,Address,City,Notes")] Booking booking)
+        public async Task<IActionResult> Create(string chin, string chout, string roomid, bool input, string fn, string ln, string em, string ph, bool pk,
+            string ad, string ref1)
         {
-            if (ModelState.IsValid)
+            if (ref1 != null)
             {
-                booking.CreatedAt = DateTime.Now;
-                _context.Add(booking);
+
+
+                var book1 = await _context.Bookings.SingleOrDefaultAsync(a => a.ReferenceNum == ref1);
+                book1.Paid = true;
+                var room1 = _context.Rooms.Single(a => a.RoomID == book1.RoomID);
+                ViewBag.num = room1.RoomNum;
+                ViewBag.type = room1.RoomType;
+                _context.Bookings.Update(book1);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+              //  return RedirectToAction(nameof(Index));
+                return View(book1);
+
             }
-            return View(booking);
+
+            var roominfo = await _context.Rooms.SingleOrDefaultAsync(a => a.RoomID == roomid);
+            var total = 0;
+            var num = 0;
+            if (roominfo.RoomType == roomType.Single)
+            {
+                total = 100;
+                num = 2;
+            }
+            else if (roominfo.RoomType == roomType.Superior)
+            {
+                total = 150;
+                num = 2;
+            }
+            else if (roominfo.RoomType == roomType.TwoBedRooms)
+            {
+                total = 200;
+                num = 4;
+            }
+
+            Guid guid = Guid.NewGuid();
+            string str = guid.ToString();
+
+
+
+            var booking = new Booking
+            {
+                FirstName = fn,
+                LastName = ln,
+                Phone = ph,
+                RoomID = roomid,
+                Address = ad,
+                Email = em,
+                Paid = false,
+                TotalFee = total,
+                CheckIn = Convert.ToDateTime(chin),
+                CheckOut = Convert.ToDateTime(chout),
+                CreatedAt = DateTime.Now,
+                ReferenceNum = str,
+                NumGuest = num,
+                ParkingLot = pk,
+
+
+            };
+
+            _context.Add(booking);
+            await _context.SaveChangesAsync();
+            //if (ModelState.IsValid)
+            //{
+            //    booking.CreatedAt = DateTime.Now;
+            //    _context.Add(booking);
+            //    await _context.SaveChangesAsync();
+            //    return RedirectToAction(nameof(Index));
+            //}
+
+            var room = _context.Rooms.Single(a => a.RoomID == roomid);
+            ViewBag.num = room.RoomNum;
+            ViewBag.type = room.RoomType;
+
+            var book = await _context.Bookings.Include(a => a.Rooms).SingleOrDefaultAsync(a => a.ReferenceNum == str);
+            return View(book);
         }
 
         // GET: Bookings/Edit/5
