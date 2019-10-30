@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace IT703_Assignment2.Migrations
 {
-    public partial class first : Migration
+    public partial class a1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -284,13 +284,14 @@ namespace IT703_Assignment2.Migrations
                 {
                     ReferenceNum = table.Column<string>(nullable: false),
                     GuestID = table.Column<string>(nullable: true),
-                    ParkingLotID = table.Column<string>(nullable: true),
+                    ParkingLot = table.Column<bool>(nullable: false),
                     RoomID = table.Column<string>(nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     CheckIn = table.Column<DateTime>(nullable: false),
                     CheckOut = table.Column<DateTime>(nullable: false),
                     NumGuest = table.Column<int>(nullable: false),
-                    TotalFee = table.Column<double>(nullable: false),
+                    restaurantFee = table.Column<double>(nullable: false),
+                    RoomFee = table.Column<double>(nullable: false),
                     Paid = table.Column<bool>(nullable: false),
                     FirstName = table.Column<string>(nullable: false),
                     MiddleName = table.Column<string>(nullable: true),
@@ -299,7 +300,8 @@ namespace IT703_Assignment2.Migrations
                     Phone = table.Column<string>(nullable: true),
                     Address = table.Column<string>(nullable: true),
                     City = table.Column<string>(nullable: true),
-                    Notes = table.Column<string>(nullable: true)
+                    Notes = table.Column<string>(nullable: true),
+                    ParkingLotID = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -326,6 +328,7 @@ namespace IT703_Assignment2.Migrations
                     RoomType = table.Column<int>(nullable: false),
                     RoomNum = table.Column<string>(nullable: false),
                     Status = table.Column<int>(nullable: false),
+                    Price = table.Column<double>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     BookingReferenceNum = table.Column<string>(nullable: true),
                     RoomTypeID = table.Column<string>(nullable: true)

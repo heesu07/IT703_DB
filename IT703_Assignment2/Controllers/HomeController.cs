@@ -1,5 +1,4 @@
-﻿
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using IT703_Assignment2.Models;
 using Microsoft.AspNetCore.Mvc;
 using IT703_Assignment2.Data;
@@ -47,12 +46,16 @@ namespace IT703_Assignment2.Controllers
 
         public async Task<IActionResult> Index(IFormCollection collection)
         {
-            if (collection.Count > 0)
+            if (collection.Count >= 3)
             {
-                var checkin = collection["checkin"];
-                var checkout = collection["checkout"];
-                var adult = collection["adult"];
+                string checkin = collection["checkin"];
+                string checkout = collection["checkout"];
+                string adult = collection["adult"];
 
+                if (checkin == "" || checkout == "")
+                {
+                    return RedirectToAction(nameof(Index));
+                }
 
                 int total = int.Parse(adult); // + int.Parse(children);
                 DateTime ci = Convert.ToDateTime(checkin);
@@ -62,7 +65,7 @@ namespace IT703_Assignment2.Controllers
                 ViewBag.adu = int.Parse(adult);
 
 
-                if (ci >= co || total <= 0)
+                if (ci >= co || total <= 0 )
                     return RedirectToAction(nameof(Index));
 
                 List<Room> reserveRooms = new List<Room>();
@@ -172,6 +175,7 @@ namespace IT703_Assignment2.Controllers
                 reserveRooms.Sort((x, y) => x.RoomNum.CompareTo(y.RoomNum));
                 return View(reserveRooms);
             }
+           
             return View(await _context.Rooms.ToListAsync());
         }
 
