@@ -21,7 +21,8 @@ namespace IT703_Assignment2.Models
         [Required]
         public string RoomID { get; set; }
 
-            
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime CreatedAt { get; set; }
 
         [DataType(DataType.Date)]

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using IT703_Assignment2.Data;
 using IT703_Assignment2.Models;
+using System.Collections.Generic;
 
 namespace IT703_Assignment2.Controllers
 {
@@ -30,9 +31,21 @@ namespace IT703_Assignment2.Controllers
         public async Task<IActionResult> Index2()
         {
 
-            var data = await _context.Bookings.ToListAsync();
+            var data = await _context.Bookings.Include(a => a.Rooms).ToListAsync();
+            var room = await _context.Rooms.ToListAsync();
 
-            return View(data);
+
+            //var room = from n in _context.Rooms
+            //                  select n;
+
+            //var data = from n in _context.Bookings
+            //            select n;
+
+            var tuple = new Tuple<List<Booking> , List<Room>>(data, room);
+
+
+
+            return View(tuple);
         }
 
 
@@ -226,7 +239,7 @@ namespace IT703_Assignment2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("ReferenceNum,RoomID,CreatedAt,CheckIn,CheckOut,NumGuest,TotalFee,Paid,FirstName,MiddleName,LastName,Email,Phone,Address,City,Notes")] Booking booking)
+        public async Task<IActionResult> Edit(string id, [Bind("ReferenceNum,RoomID,CreatedAt,CheckIn,CheckOut,NumGuest,RoomFee,restaurantFee,Paid,FirstName,MiddleName,LastName,Email,Phone,Address,City,Notes")] Booking booking)
         {
             if (id != booking.ReferenceNum)
             {
@@ -251,7 +264,7 @@ namespace IT703_Assignment2.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index2));
             }
             return View(booking);
         }
@@ -282,7 +295,7 @@ namespace IT703_Assignment2.Controllers
             var booking = await _context.Bookings.FindAsync(id);
             _context.Bookings.Remove(booking);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index2));
         }
 
         private bool BookingExists(string id)

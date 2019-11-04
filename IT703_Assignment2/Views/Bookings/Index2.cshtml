@@ -1,4 +1,6 @@
-﻿@model IEnumerable<IT703_Assignment2.Models.Booking>
+﻿@*@model IEnumerable<IT703_Assignment2.Models.Booking>*@
+
+@model Tuple<List<IT703_Assignment2.Models.Booking>, List<IT703_Assignment2.Models.Room>>
 
 @{
     ViewData["Title"] = "Index";
@@ -10,34 +12,32 @@
 
 <h1>BOOKING LIST</h1>
 
-<p>
-    <a class="btn btn-primary" asp-action="Create"> New Booking</a>
-</p>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>        
+               FirstName
+            </th>
             <th>
-                @Html.DisplayNameFor(model => model.LastName)
+                LastName
             </th>
 
             <th>
-                @Html.DisplayNameFor(model => model.CreatedAt)
+               CreatedAt
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CheckIn)
+                Check In
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CheckOut)
+              Check Out
             </th>
             <th>
-                Room Type
+                Room Number
             </th>
 
             <th>
-                @Html.DisplayNameFor(model => model.NumGuest)
+                NumGuest
             </th>
             <th>
                 RestaurantFee
@@ -46,43 +46,43 @@
                 Room Fee
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Paid)
+               Paid
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
+                <a class="btn btn-primary" asp-action="Create"> New Booking</a>           
             </th>
-
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Phone)
-            </th>
-
-
-            <th>
-                @Html.DisplayNameFor(model => model.Notes)
-            </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.Item1)
         {
             <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
 
                 <td>
                     @Html.DisplayFor(modelItem => item.CreatedAt)
                 </td>
+
                 <td>
                     @Html.DisplayFor(modelItem => item.CheckIn)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CheckOut)
                 </td>
+
+                <td>
+                 @if(item.RoomID != null)
+                 {
+                     @Model.Item2.SingleOrDefault(a=>a.RoomID == item.RoomID).RoomNum
+                 }
+
+                </td>
+
                 <td>
                     @Html.DisplayFor(modelItem => item.NumGuest)
                 </td>
@@ -90,56 +90,19 @@
                     @Html.DisplayFor(modelItem => item.restaurantFee)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Paid)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
-                </td>
-
-                <td>
-                    @item.CheckIn
-                </td>
-                <td>
-                    @item.CheckOut
-                </td>
-                <td>
-                    @item.restaurantFee
-                </td>
-                <td>
-                    @if (item.RoomFee == 100)
-                    {
-                        <a>SingleRoom</a>
-
-                    }
-                    else if (item.RoomFee == 150)
-                    {
-
-                        <a>SuperiorRoom</a>
-                    }
-                    else
-                    {
-                        <a>TwoBedRoom</a>
-                    }
-
-
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NumGuest)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.RoomFee)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Paid)
                 </td>
-
-
                 <td>
-                    <a class="btn btn-dark" asp-action="Edit" asp-route-id="@item.ReferenceNum">Edit</a>
 
-                    <a class="btn btn-primary" asp-action="Delete" asp-route-id="@item.ReferenceNum">Delete</a>
+                    <a class="btn btn-dark" asp-action="Details" asp-route-id="@item.ReferenceNum">Detial</a>
+
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+   
