@@ -263,13 +263,13 @@ else
     </div>
     <div class="col-md-4">
         <div class="form-group float-right">
-            @if (!Model.Paid)
+            @if (!Model.Paid && (User.IsInRole("Reception")|| User.IsInRole("Manager")))
             {
                 <button data-toggle="modal" data-target="#myModa2" class="btn btn-outline-secondary">Card pay</button>
                 <button data-toggle="modal" data-target="#myModa1" class="btn btn-outline-secondary">Other way to Pay</button>
             }
         </div>
-    </div>
+    </div>)
 
 </div>
 
