@@ -48,7 +48,6 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar navbar-custom ftco-navbar-light" id="ftco-navbar">
             <div class="container">
-                <a class="brand">Hotel</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="oi oi-menu"></span> Menu
                 </button>  
@@ -62,8 +61,10 @@
                             <li class="nav-item">
                                 <a class="nav-link text-white" asp-area="" asp-controller="Rooms" asp-action="Index2">RoomManage</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Bookings" asp-action="Customer">Customer</a>
+                            </li>
 
-                            
 
                         }
                         else if (User.IsInRole("Reception"))
@@ -74,7 +75,9 @@
                             <li class="nav-item">
                                 <a class="nav-link text-white" asp-area="" asp-controller="Rooms" asp-action="Index2">RoomManage</a>
                             </li>
-                            
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Bookings" asp-action="Customer">Customer</a>
+                            </li>
 
                         }
                         else if (User.IsInRole("Housekeeper"))
@@ -82,7 +85,7 @@
                             <li class="nav-item">
                                 <a class="nav-link text-white" asp-area="" asp-controller="Rooms" asp-action="Index2">RoomManage</a>
                             </li>
-                           
+
                         }
                         else
                         {
