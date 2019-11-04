@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using IT703_Assignment2.Data;
 using IT703_Assignment2.Models;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authorization;
 
 namespace IT703_Assignment2.Controllers
 {
@@ -18,6 +20,61 @@ namespace IT703_Assignment2.Controllers
             _context = context;
         }
 
+        public async Task<IActionResult> Report()
+        {
+            DateTime i, o;
+            DateTime date = DateTime.Now;
+            List<Booking> checkList = new List<Booking>();
+
+            var firstDayOfMonth = new DateTime(date.Year, date.Month, 1);
+            var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+            DateTime ci = Convert.ToDateTime(firstDayOfMonth);
+            DateTime co = Convert.ToDateTime(lastDayOfMonth);
+
+            var list = _context.Bookings.ToList();
+
+            foreach (Booking booking in list)
+            {
+                i = booking.CheckIn;
+                o = booking.CheckOut;
+                if (i <= ci && o >= co)
+                {
+                    checkList.Add(booking);
+                    continue;
+                }
+                else if (i >= ci && i < co)
+                {
+                    checkList.Add(booking);
+                    continue;
+                }
+                else if (o > ci && o <= co)
+                {
+                    checkList.Add(booking);
+                    continue;
+                }
+            }
+
+            double daybook = 0;
+            double numPeople = 0;
+            Dictionary<string, double> salesDatas = new Dictionary<string, double>();
+            foreach (Booking b in checkList)
+            {
+                daybook += (int)(b.CheckOut - b.CheckIn).TotalDays;
+                numPeople += b.NumGuest;
+            }
+            salesDatas.Add("Booked Room", daybook);
+            salesDatas.Add("Booked Guest", numPeople);
+            List<DataPoint> dataPoints = new List<DataPoint>();
+            
+            dataPoints.Add(new DataPoint("Booked Room", Math.Round(daybook / 270 * 100, 1)));
+            dataPoints.Add(new DataPoint("Booked Guest", Math.Round((numPeople / 270 * 2) * 100, 1)));
+
+
+
+            ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
+            return View();
+
+        }
         // GET: Bookings
         public async Task<IActionResult> Index()
         {
